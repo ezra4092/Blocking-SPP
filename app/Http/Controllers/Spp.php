@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\SppModel;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class Spp extends Controller
@@ -40,6 +42,29 @@ class Spp extends Controller
         $pembayaran->update($request->except(['_token'], '_method'));
 
         return redirect()->to(url('pembayaran'))->with('dataEdit', 'Data Berhasil Di Edit');
+    }
+
+    public function showForm()
+    {
+        return view('user', [
+            'title' => 'Profil | MyApp',
+            'active' => 'spp'
+        ]);
+    }
+
+    public function akun(Request $request){
+
+        if($request->password == $request->new_password){
+            $akun = User::find(Auth::user()->id);
+            $akun->nama = $request->nama;
+            $akun->username = $request->username;
+            $akun->password = $request->password;
+            $akun->save();
+            return redirect()->to(url('user'))->with(['akunEdit' => true]);
+
+        } else {
+            return back()->with(['gagal' => true]);
+        }
     }
 
 }

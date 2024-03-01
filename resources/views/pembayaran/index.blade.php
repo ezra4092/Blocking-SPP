@@ -29,7 +29,7 @@
                             <td>{{$row->nama}}</td>
                             <td>{{$row->tgl_bayar}}</td>
                             <td>Rp. {{$row->jumlah}}</td>
-                            <td class="row">
+                            <td class="row" width="80%">
                                 <form action="{{route('pembayaran.delete', $row->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -4,21 +4,14 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="viewport" content="width=device-width, initial-
-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Login | MyApp</title>
 <!-- Custom fonts for this template-->
-<link href="template/vendor/fontawesome-free/css/all.min.css"
-rel="stylesheet" type="text/css">
-<link
-href="https://fonts.googleapis.com/css?family=Nunito:200,200i
-
-,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-
-rel="stylesheet">
+<link href="template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="template/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
@@ -45,7 +38,7 @@ rel="stylesheet">
                                     <input type="submit" name="login" value="Login" class="btn btn-warning btn-user btn-block">
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="{{url('reset-password')}}" style="color: black;">Lupa Password?</a>
+                                        <a class="small" href="{{route('password.request')}}" style="color: black;">Lupa Password?</a>
                                     </div>
                                     </form>
                                 </div>
@@ -83,6 +76,25 @@ rel="stylesheet">
     });
 </script>
 @endif
+@if(session('forgot-pw'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Password berhasil diganti'
+            });
+        </script>
+    @endif
 
 </body>
 </html>

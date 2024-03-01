@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Login extends Controller
 {
@@ -46,5 +48,22 @@ class Login extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+    public function edit($id){
+        $data = [
+            'title' => 'Reset Password | MyApp',
+            'active' => 'Spp',
+            'pembayaran' => User::find($id)
+        ];
+        return view('reset', $data);
+    }
+
+    public function reset(Request $request, $id) {
+        $pembayaran = User::find($id);
+        $pembayaran->update($request->except(['_token'], '_method'));
+
+        return redirect()->to(url('/'))->with('dataEdit', 'Data Berhasil Di Edit');
+    }
+
 
 }
